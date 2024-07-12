@@ -1,23 +1,37 @@
-function result = MatrixMultiplication(A, B)
-    % Get the number of rows and columns for both matrices
+function C = matrix_multiply(A, B)
+    % Check dimensions
     [rows_A, cols_A] = size(A);
     [rows_B, cols_B] = size(B);
 
-    % Check if multiplication is possible
-    if cols_A != rows_B
-        error('Number of columns of A must equal number of rows of B');
+    % Ensure matrix dimensions are compatible for multiplication
+    if cols_A ~= rows_B
+        error('Matrix dimensions must agree for multiplication.');
     end
 
-    % Initialize the result matrix with zeros
-    result = zeros(rows_A, cols_B);
+    % Initialize result matrix C
+    C = zeros(rows_A, cols_B);
 
-    % Perform the multiplication
+    % Perform matrix multiplication
     for i = 1:rows_A
         for j = 1:cols_B
             for k = 1:cols_A
-                result(i, j) += A(i, k) * B(k, j);
+                C(i, j) = C(i, j) + A(i, k) * B(k, j);
             end
         end
     end
 end
+% Example usage:
+A = [
+    1, 2, 3;
+    4, 5, 6
+];
+
+B = [
+    7, 8;
+    9, 10;
+    11, 12
+];
+
+C = matrix_multiply(A, B);
+disp(C);
 
